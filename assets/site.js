@@ -40,14 +40,51 @@ document.querySelectorAll('.faq-question').forEach(btn => {
 });
 
 // Country card search
+// Europe card shows for any European country not already with its own card
 (function() {
   const input = document.getElementById('country-search');
   if (!input) return;
+
+  // All European countries NOT already represented by their own dedicated card
+  const europeAliases = [
+    'albania','andorra','armenia','austria','azerbaijan','belarus',
+    'bosnia','bulgaria','croatia','cyprus','czech','czechia','slovakia',
+    'denmark', // has own card — but listed in europe too, kept separate
+    'estonia','finland','georgia','gibraltar','greece','hungary',
+    'iceland','kosovo','latvia','liechtenstein','lithuania','luxembourg',
+    'malta','moldova','monaco','montenegro','north macedonia',
+    'poland','romania','russia','san marino','serbia','slovenia',
+    'turkey','ukraine','vatican','europe','eu','european'
+  ];
+
+  // Cards that have their own dedicated entry (exclude from europe alias matching)
+  const ownCards = [
+    'belgium','france','germany','ireland','italy','netherlands',
+    'norway','portugal','spain','sweden','switzerland','united kingdom','uk'
+  ];
+
   input.addEventListener('input', function() {
     const q = this.value.toLowerCase().trim();
+
+    // Does the query match a European alias (and not a country with its own card)?
+    const isEuropeQuery = q.length > 1
+      && europeAliases.some(alias => alias.includes(q) || q.includes(alias))
+      && !ownCards.some(own => own.includes(q) || q.includes(own));
+
     document.querySelectorAll('.country-card').forEach(card => {
-      const name = card.querySelector('span').textContent.toLowerCase();
-      card.style.display = name.includes(q) ? '' : 'none';
+      const nameEl = card.querySelector('.country-name');
+      if (!nameEl) return;
+      const name = nameEl.textContent.toLowerCase();
+      const isEuropeCard = name === 'europe';
+
+      if (q === '') {
+        card.style.display = '';
+      } else if (isEuropeCard) {
+        // Show Europe card if query matches europe aliases AND no own card covers it
+        card.style.display = isEuropeQuery ? '' : 'none';
+      } else {
+        card.style.display = name.includes(q) ? '' : 'none';
+      }
     });
   });
 })();
