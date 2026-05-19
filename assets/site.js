@@ -1,5 +1,16 @@
 /* site.js — Magnetic Screens Company */
 
+// Nav — transparent over hero, solid after scroll
+(function() {
+  const nav = document.querySelector('.site-nav');
+  if (!nav) return;
+  function updateNav() {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+})();
+
 // Hamburger / mobile nav
 (function() {
   const btn = document.querySelector('.hamburger');
