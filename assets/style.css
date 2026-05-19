@@ -273,7 +273,7 @@ p  { margin-bottom: 1rem; color: var(--text-mid); }
 /* Full-bleed photo — covers entire hero */
 .hero-bg {
   position: absolute; inset: 0;
-  background: url('hero.png') center center / cover no-repeat;
+  background: url('/assets/hero.png') center center / cover no-repeat;
   opacity: 1;
 }
 
