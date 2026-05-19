@@ -21,8 +21,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="assets/style.css">
+
+<!-- Critical inline styles — ensure nav and overlay never flash unstyled -->
+<style>
+  .site-nav { position:fixed; top:0; left:0; right:0; z-index:999; display:flex; align-items:center; justify-content:space-between; padding:0 2rem; height:68px; background:transparent; }
+  .nav-links { display:flex; list-style:none; }
+  .mobile-nav-overlay { display:none; position:fixed; }
+  .mobile-nav-overlay.open { display:flex; }
+  .sticky-cta { display:none; position:fixed; }
+  .sticky-cta.visible { display:block; }
+  @media(max-width:768px){ .nav-links,.nav-cta{display:none;} .hamburger{display:flex;} }
+</style>
 
 <!-- ===== GOOGLE ANALYTICS — REPLACE WITH YOUR CODE ===== -->
 <!-- Google tag (gtag.js) -->
